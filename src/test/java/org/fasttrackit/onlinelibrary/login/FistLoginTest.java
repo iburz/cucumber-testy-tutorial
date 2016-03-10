@@ -20,6 +20,8 @@ public class FistLoginTest extends TestBase {
         openLoginPage();
         doLogin("eu@fast.com", "eu.pass");
 
+        //doLogin("eu@fast.com", "eu.pass");
+
 
         try {
             WebElement logoutBtn = driver.findElement(By.linkText("Logout"));
