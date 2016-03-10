@@ -35,26 +35,20 @@ public class FistLoginTest extends TestBase {
     public void whenEnterInvalidPasswordIGetErrorMessage() {
         openLoginPage();
         doLogin("eu@fast.com", "wrong.pass");
-
-        WebElement errorMsg = driver.findElement(By.className("error-msg"));
-        System.out.println(errorMsg.getText());
-        assertThat(errorMsg.getText(), is("Invalid user or password!"));
+        assertThatErrorIs("Invalid user or password!");
     }
 
     @Test
     public void whenEnterOnlyEmailIGetErrorMessage() {
         openLoginPage();
         doLogin("eu@fast.com", "");
-
-        WebElement errorMsg = driver.findElement(By.className("error-msg"));
-        System.out.println(errorMsg.getText());
-        assertThat(errorMsg.getText(), is("Please enter your password!"));
+        assertThatErrorIs("Please enter your password!");
     }
+
     @Test
     public void whenEnterOnlyPasswordIGetErrorMessage() {
         openLoginPage();
         doLogin("", "some_pass");
-
         assertThatErrorIs("Please enter your email!");
     }
 
