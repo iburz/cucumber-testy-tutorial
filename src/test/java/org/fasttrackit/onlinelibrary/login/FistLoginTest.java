@@ -53,6 +53,36 @@ public class FistLoginTest extends TestBase {
         doLogin("", "some_pass");
         assertThatErrorIs("Please enter your email!");
     }
+    @Test
+    public void successChangePassword(){
+        openLoginPage();
+        doLogin("eu@fast.com", "eu.pass");
+               WebElement preferenceButton = driver.findElement(By.xpath("//nav//button"));
+        preferenceButton.click();
+
+        try {
+            Thread.sleep(1000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+
+         WebElement currentPassField = driver.findElement(By.xpath("//div[@id='preferences-win']//input [@name='password']"));
+        currentPassField.sendKeys("eu.pass");
+
+        WebElement newPassField = driver.findElement(By.xpath("//input[@name='newPassword']"));
+        newPassField.sendKeys("eu.pass1");
+
+        WebElement repeatPassField = driver.findElement(By.xpath("//input[@name='newPasswordRepeat']"));
+        repeatPassField.sendKeys("eu.pass1");
+
+        WebElement saveBtn = driver.findElement(By.cssSelector("#preferences-win button.btn-warning"));
+        saveBtn.click();
+
+        WebElement statusElement = driver.findElement(By.cssSelector("#preferences-win .status-msg"));
+        System.out.println(statusElement.getText());
+        assertThat(statusElement.getText(), is("Your password has been successfully changed."));
+    }
 
     private void assertThatErrorIs(String message) {
         WebElement errorMsg = driver.findElement(By.className("error-msg"));
